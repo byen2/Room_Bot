@@ -15,7 +15,7 @@
 """
 
 DEBUG_Price = True
-userDefinedDICT = {}
+userDefinedDICT = {"rent": ["房租", "租金"], "equipment": ["床", "房", "wifi", "WIFI", "Wifi", "internet", "Internet", "早餐", "吧台", "廚房", "健身房"]}
 
 # 將符合句型的參數列表印出。這是 debug 或是開發用的。
 def debugInfo(inputSTR, utterance):
@@ -24,23 +24,15 @@ def debugInfo(inputSTR, utterance):
 
 def getResult(inputSTR, utterance, args, resultDICT):
     debugInfo(inputSTR, utterance)
-    if utterance == "2500到5000[中間]":
+    if utterance == "[2500]到[5000美金]":
         # write your code here
         pass
 
-    if utterance == "[每一個月]不[能]超過5000美金":
+    if utterance == "少於[5000美金]":
         # write your code here
         pass
 
-    if utterance == "價錢2500美金到5000美金":
-        # write your code here
-        pass
-
-    if utterance == "少於5000美金":
-        # write your code here
-        pass
-
-    if utterance == "少於5000美金，超過[一點][也][行]":
+    if utterance == "房租[2500美金]到[5000美金]":
         # write your code here
         pass
 

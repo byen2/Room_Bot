@@ -15,7 +15,7 @@
 """
 
 DEBUG_Amenities = True
-userDefinedDICT = {}
+userDefinedDICT = {"rent": ["房租", "租金"], "equipment": ["床", "房", "wifi", "WIFI", "Wifi", "internet", "Internet", "早餐", "吧台", "廚房", "健身房"]}
 
 # 將符合句型的參數列表印出。這是 debug 或是開發用的。
 def debugInfo(inputSTR, utterance):
@@ -24,15 +24,19 @@ def debugInfo(inputSTR, utterance):
 
 def getResult(inputSTR, utterance, args, resultDICT):
     debugInfo(inputSTR, utterance)
-    if utterance == "[可以]養動物":
+    if utterance == "[可以]養[動物]":
         # write your code here
         pass
 
-    if utterance == "[附近]有捷運站":
+    if utterance == "[家具][都]包含":
         # write your code here
         pass
 
-    if utterance == "[附近]有游泳池":
+    if utterance == "[洗衣機]和[烘乾機][都]需要":
+        # write your code here
+        pass
+
+    if utterance == "[附近]有[捷運站]":
         # write your code here
         pass
 
@@ -40,27 +44,15 @@ def getResult(inputSTR, utterance, args, resultDICT):
         # write your code here
         pass
 
-    if utterance == "包含水電費":
+    if utterance == "包含[水電費]":
         # write your code here
         pass
 
-    if utterance == "家具[都]包含":
+    if utterance == "有[廚房]":
         # write your code here
         pass
 
-    if utterance == "有健身房":
-        # write your code here
-        pass
-
-    if utterance == "有廚房":
-        # write your code here
-        pass
-
-    if utterance == "有餐廳和客廳":
-        # write your code here
-        pass
-
-    if utterance == "洗衣機和烘乾機[都]需要":
+    if utterance == "有[餐廳]和[客廳]":
         # write your code here
         pass
 
