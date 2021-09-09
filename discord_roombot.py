@@ -4,9 +4,25 @@
 import discord
 import json
 from Apt_Bot import botRunLoki
+import datetime
 
 with open("account.info", encoding="utf-8") as f:
     accountDICT = json.loads(f.read())
+
+
+templateDICT = {
+    "bed_num":None,
+    "bath_type":None,
+    "price":None,
+    "amenityLIST":[],
+    "updatetime":None
+}
+
+mscDICT = {
+    #"id":templateDICT
+}
+
+
 
 class BotClient(discord.Client):
     async def on_ready(self):
@@ -25,8 +41,46 @@ class BotClient(discord.Client):
             msg = message.content.replace("<@!{}> ".format(self.user.id), "")
             if msg == 'ping':
                 await message.reply('pong')
-            if msg == 'ping ping':
+            elif msg == 'ping ping':
                 await message.reply('pong pong')
+            elif msg.lower() in ("hi", "", "hey", "hello"):
+                if message.author in mscDICT.keys():
+                    nowDATETIME = datetime.datetime.now()
+                    timeDIFF = nowDATETIME - mscDICT[message.author]["updatetime"]
+                    if timeDIFF.total_seconds() >= 300: #longer than 5 min from last conversation.
+                        mscDICT[message.author] = templateDICT
+                        await message.reply("您好！為了這次的住宿，想要找什麼樣的房型條件呢？")
+                    else:
+                        await message.reply("我還在等您的決定。")
+            else:
+                #Fulfill the four items listed in templateDICT
+                resultDICT = botRunLoki(msg)
+                for k in resultDICT.keys():
+                    mscDICT[message.author][k] = resultDICT[k]
+
+                for k in mscDICT[message.author].keys():
+                    if mscDICT[message.author][k] == None:
+                        if k == "bed_num":
+                            replySTR = "需要幾張床呢？"
+                            break
+                        elif k == "bath_type":
+                            replySTR = "想要什麼樣的衛浴呢？"
+                            break
+                        elif k == "price":
+                            replySTR = "價位有什麼考量嗎？"
+                            break
+                    elif mscDICT[message.author][k] == []:
+                        replySTR = "特別需要哪些設備嗎？"
+                        break
+                    else:
+                        replySTR = "您要找的房間是："
+                        break
+                await message.reply(replySTR)
+
+
+
+
+
 
 if __name__ == "__main__":
     client = BotClient()
