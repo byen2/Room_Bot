@@ -41,7 +41,8 @@
             ]
         }
 """
-
+import json
+import re
 from requests import post
 from requests import codes
 import math
@@ -56,10 +57,11 @@ except:
     from .intent import Loki_Bed
     from .intent import Loki_Bath
 
+accountDICT = json.loads(open("account.info", encoding="utf-8").read())
 
 LOKI_URL = "https://api.droidtown.co/Loki/BulkAPI/"
-USERNAME = ""
-LOKI_KEY = ""
+USERNAME = accountDICT["username"]
+LOKI_KEY = accountDICT["loki_key"]
 # 意圖過濾器說明
 # INTENT_FILTER = []        => 比對全部的意圖 (預設)
 # INTENT_FILTER = [intentN] => 僅比對 INTENT_FILTER 內的意圖
@@ -199,6 +201,24 @@ def testLoki(inputLIST, filterLIST):
     for i in range(0, math.ceil(len(inputLIST) / INPUT_LIMIT)):
         resultDICT = runLoki(inputLIST[i*INPUT_LIMIT:(i+1)*INPUT_LIMIT], filterLIST)
 
+def botRunLoki(inputSTR, filterLIST):
+    '''
+    A preprocessor that converts the inputSTR received from bot into inputLIST
+    for runLoki()
+    '''
+
+    #substitute these punctuation marks into new_line marker \n, then split the
+    #whole string with new_line marker into a list.
+    punctuationPat = re.compile("[,\.\?:;，。？、：；\n]+")
+    inputLIST = punctuationPat.sub("\n", inputSTR).split("\n")
+
+    resultDICT = runLoki(inputLIST, filterLIST)
+    print("Loki Result => {}".format(resultDICT))
+
+    if "msg" in resultDICT.keys() and resultDICT["msg"] == "No Match Intent!":
+        return False
+    else:
+        return resultDICT
 
 if __name__ == "__main__":
     # Price
