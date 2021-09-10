@@ -24,16 +24,24 @@ def debugInfo(inputSTR, utterance):
 
 def getResult(inputSTR, utterance, args, resultDICT):
     debugInfo(inputSTR, utterance)
+
+    resultDICT["Price"] = []
+
     if utterance == "[2500]到[5000美金]":
         # write your code here
-        pass
+        resultDICT["Price"].append(arg[0])
+        resultDICT["Price"].append(arg[1])
+        #pass
 
     if utterance == "少於[5000美金]":
         # write your code here
+        #rewrite this stupid phrase
         pass
 
     if utterance == "房租[2500美金]到[5000美金]":
         # write your code here
-        pass
+        resultDICT["Price"].append(arg[0])
+        resultDICT["Price"].append(arg[1])
+        #pass
 
     return resultDICT

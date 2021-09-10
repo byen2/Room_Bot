@@ -24,15 +24,23 @@ def debugInfo(inputSTR, utterance):
 
 def getResult(inputSTR, utterance, args, resultDICT):
     debugInfo(inputSTR, utterance)
+
+    resultDICT["Bath"] = []
+
     if utterance == "乾濕分離":
+        #separate bathroom into dry and wet sections?
         # write your code here
-        pass
+        resultDICT["Bath"].append("乾濕分離")
+        #pass
 
     if utterance == "公共[浴室]":
+        # shared bathroom?
         # write your code here
+        #think about this a little more
         pass
 
     if utterance == "獨立[衛浴]":
+        # own bathroom?
         # write your code here
         pass
 

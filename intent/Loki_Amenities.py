@@ -24,36 +24,49 @@ def debugInfo(inputSTR, utterance):
 
 def getResult(inputSTR, utterance, args, resultDICT):
     debugInfo(inputSTR, utterance)
+
+    resultDICT["Amenities"] = []
+
     if utterance == "[可以]養[動物]":
         # write your code here
-        pass
+        resultDICT["Amenities"].append(args[1])
+        #pass
 
     if utterance == "[家具][都]包含":
         # write your code here
-        pass
+        resultDICT["Amenities"].append(args[0])
+        #pass
 
     if utterance == "[洗衣機]和[烘乾機][都]需要":
         # write your code here
-        pass
+        resultDICT["Amenities"].append(args[0])
+        resultDICT["Amenities"].append(args[1])
+        #pass
 
     if utterance == "[附近]有[捷運站]":
         # write your code here
-        pass
+        resultDICT["Amenities"].append(args[1])
+        #pass
 
     if utterance == "不[能]抽煙":
         # write your code here
+        #fix this stupid phrase
         pass
 
     if utterance == "包含[水電費]":
         # write your code here
-        pass
+        resultDICT["Amenities"].append("水電")
+        #pass
 
     if utterance == "有[廚房]":
         # write your code here
+        resultDICT["Amenities"].append(args[1])
         pass
 
     if utterance == "有[餐廳]和[客廳]":
         # write your code here
-        pass
+        resultDICT["Amenities"].append(args[0])
+        resultDICT["Amenities"].append(args[1])
+        #pass
 
     return resultDICT
