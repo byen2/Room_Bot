@@ -44,7 +44,12 @@ class BotClient(discord.Client):
             elif msg == 'ping ping':
                 await message.reply('pong pong')
             elif msg.lower() in ("hi", "", "hey", "hello"):
+                await message.reply("hey there!")
+                #if !(message.author in mscDICT.keys()):
+                    #add the author into mscDICT
+                    #mscDICT[message.author] = 
                 if message.author in mscDICT.keys():
+                    #await message.reply("hey there!")
                     nowDATETIME = datetime.datetime.now()
                     timeDIFF = nowDATETIME - mscDICT[message.author]["updatetime"]
                     if timeDIFF.total_seconds() >= 300: #longer than 5 min from last conversation.

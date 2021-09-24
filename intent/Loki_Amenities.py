@@ -60,7 +60,7 @@ def getResult(inputSTR, utterance, args, resultDICT):
 
     if utterance == "有[廚房]":
         # write your code here
-        resultDICT["Amenities"].append(args[1])
+        resultDICT["Amenities"].append(args[0])
         pass
 
     if utterance == "有[餐廳]和[客廳]":

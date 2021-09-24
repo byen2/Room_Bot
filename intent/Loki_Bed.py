@@ -24,12 +24,19 @@ def debugInfo(inputSTR, utterance):
 
 def getResult(inputSTR, utterance, args, resultDICT):
     debugInfo(inputSTR, utterance)
+
+    resultDICT["Bed"] = []
+
     if utterance == "[一張][床]":
         # write your code here
-        pass
+        resultDICT["Bed"].append("1")
+        #pass
 
     if utterance == "[兩]房[三]床":
         # write your code here
-        pass
+        resultDICT["Bed"].append("3")
+        #pass
 
+    #兩大一小
+    
     return resultDICT
