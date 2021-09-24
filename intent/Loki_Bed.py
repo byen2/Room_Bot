@@ -15,7 +15,7 @@
 """
 
 DEBUG_Bed = True
-userDefinedDICT = {"rent": ["房租", "租金"], "equipment": ["床", "房", "wifi", "WIFI", "Wifi", "internet", "Internet", "早餐", "吧台", "廚房", "健身房"]}
+userDefinedDICT = {"rent": ["房租", "租金"], "animal": ["動物", "狗", "貓"], "service": ["wifi", "WIFI", "Wifi", "internet", "Internet", "早餐", "吧台", "廚房", "健身房"], "bathroom": ["衛浴", "浴室"], "quantity": ["一", "兩", "三", "四"], "money_type": ["美金", "台幣"]}
 
 # 將符合句型的參數列表印出。這是 debug 或是開發用的。
 def debugInfo(inputSTR, utterance):
@@ -27,16 +27,14 @@ def getResult(inputSTR, utterance, args, resultDICT):
 
     resultDICT["Bed"] = []
 
-    if utterance == "[一張][床]":
+    if utterance == "[一]張床":
         # write your code here
-        resultDICT["Bed"].append("1")
+        resultDICT["Bed"].append(args[0])
         #pass
 
     if utterance == "[兩]房[三]床":
         # write your code here
-        resultDICT["Bed"].append("3")
+        resultDICT["Bed"].append(args[1])
         #pass
 
-    #兩大一小
-    
     return resultDICT

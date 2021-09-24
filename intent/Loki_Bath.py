@@ -15,7 +15,7 @@
 """
 
 DEBUG_Bath = True
-userDefinedDICT = {"rent": ["房租", "租金"], "equipment": ["床", "房", "wifi", "WIFI", "Wifi", "internet", "Internet", "早餐", "吧台", "廚房", "健身房"]}
+userDefinedDICT = {"rent": ["房租", "租金"], "animal": ["動物", "狗", "貓"], "service": ["wifi", "WIFI", "Wifi", "internet", "Internet", "早餐", "吧台", "廚房", "健身房"], "bathroom": ["衛浴", "浴室"], "quantity": ["一", "兩", "三", "四"], "money_type": ["美金", "台幣"]}
 
 # 將符合句型的參數列表印出。這是 debug 或是開發用的。
 def debugInfo(inputSTR, utterance):
@@ -36,12 +36,13 @@ def getResult(inputSTR, utterance, args, resultDICT):
     if utterance == "公共[浴室]":
         # shared bathroom?
         # write your code here
-        #think about this a little more
-        pass
+        resultDICT["Bath"].append("shared")
+        #pass
 
     if utterance == "獨立[衛浴]":
         # own bathroom?
         # write your code here
-        pass
+        resultDICT["Bath"].append("individual")
+        #pass
 
     return resultDICT

@@ -15,7 +15,7 @@
 """
 
 DEBUG_Price = True
-userDefinedDICT = {"rent": ["房租", "租金"], "equipment": ["床", "房", "wifi", "WIFI", "Wifi", "internet", "Internet", "早餐", "吧台", "廚房", "健身房"]}
+userDefinedDICT = {"rent": ["房租", "租金"], "animal": ["動物", "狗", "貓"], "service": ["wifi", "WIFI", "Wifi", "internet", "Internet", "早餐", "吧台", "廚房", "健身房"], "bathroom": ["衛浴", "浴室"], "quantity": ["一", "兩", "三", "四"], "money_type": ["美金", "台幣"]}
 
 # 將符合句型的參數列表印出。這是 debug 或是開發用的。
 def debugInfo(inputSTR, utterance):
@@ -27,21 +27,19 @@ def getResult(inputSTR, utterance, args, resultDICT):
 
     resultDICT["Price"] = []
 
-    if utterance == "[2500]到[5000美金]":
+    if utterance == "[2500]到[5000][美金]":
         # write your code here
-        resultDICT["Price"].append(arg[0])
-        resultDICT["Price"].append(arg[1])
+        resultDICT["Price"].append(args[0] + "-" + args[1])
         #pass
 
-    if utterance == "少於[5000美金]":
+    if utterance == "少於[5000][美金]":
         # write your code here
-        #rewrite this stupid phrase
-        pass
+        resultDICT["Price"].append(">" + args[0])
+        #pass
 
-    if utterance == "房租[2500美金]到[5000美金]":
+    if utterance == "房租[2500][美金]到[5000][美金]":
         # write your code here
-        resultDICT["Price"].append(arg[0])
-        resultDICT["Price"].append(arg[1])
+        resultDICT["Price"].append(args[0] + "-" + args[1])
         #pass
 
     return resultDICT
