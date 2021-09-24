@@ -47,15 +47,16 @@ from requests import post
 from requests import codes
 import math
 try:
-    from intent import Loki_Price
     from intent import Loki_Amenities
-    from intent import Loki_Bed
     from intent import Loki_Bath
+    from intent import Loki_Price
+    from intent import Loki_Bed
 except:
-    from .intent import Loki_Price
     from .intent import Loki_Amenities
-    from .intent import Loki_Bed
     from .intent import Loki_Bath
+    from .intent import Loki_Price
+    from .intent import Loki_Bed
+
 
 accountDICT = json.loads(open("account.info", encoding="utf-8").read())
 
@@ -101,7 +102,7 @@ class LokiResult():
                     self.balance = result["word_count_balance"]
                     self.lokiResultLIST = result["result_list"]
             else:
-                self.message = "Connect failed."
+                self.message = "{} Connection failed.".format(result.status_code)
         except Exception as e:
             self.message = str(e)
 
@@ -176,21 +177,21 @@ def runLoki(inputLIST, filterLIST=[]):
     if lokiRst.getStatus():
         for index, key in enumerate(inputLIST):
             for resultIndex in range(0, lokiRst.getLokiLen(index)):
-                # Price
-                if lokiRst.getIntent(index, resultIndex) == "Price":
-                    resultDICT = Loki_Price.getResult(key, lokiRst.getUtterance(index, resultIndex), lokiRst.getArgs(index, resultIndex), resultDICT)
-
                 # Amenities
                 if lokiRst.getIntent(index, resultIndex) == "Amenities":
                     resultDICT = Loki_Amenities.getResult(key, lokiRst.getUtterance(index, resultIndex), lokiRst.getArgs(index, resultIndex), resultDICT)
 
-                # Bed
-                if lokiRst.getIntent(index, resultIndex) == "Bed":
-                    resultDICT = Loki_Bed.getResult(key, lokiRst.getUtterance(index, resultIndex), lokiRst.getArgs(index, resultIndex), resultDICT)
-
                 # Bath
                 if lokiRst.getIntent(index, resultIndex) == "Bath":
                     resultDICT = Loki_Bath.getResult(key, lokiRst.getUtterance(index, resultIndex), lokiRst.getArgs(index, resultIndex), resultDICT)
+
+                # Price
+                if lokiRst.getIntent(index, resultIndex) == "Price":
+                    resultDICT = Loki_Price.getResult(key, lokiRst.getUtterance(index, resultIndex), lokiRst.getArgs(index, resultIndex), resultDICT)
+
+                # Bed
+                if lokiRst.getIntent(index, resultIndex) == "Bed":
+                    resultDICT = Loki_Bed.getResult(key, lokiRst.getUtterance(index, resultIndex), lokiRst.getArgs(index, resultIndex), resultDICT)
 
     else:
         resultDICT = {"msg": lokiRst.getMessage()}
@@ -200,6 +201,7 @@ def testLoki(inputLIST, filterLIST):
     INPUT_LIMIT = 20
     for i in range(0, math.ceil(len(inputLIST) / INPUT_LIMIT)):
         resultDICT = runLoki(inputLIST[i*INPUT_LIMIT:(i+1)*INPUT_LIMIT], filterLIST)
+
 
 def botRunLoki(inputSTR, filterLIST):
     '''
@@ -220,33 +222,36 @@ def botRunLoki(inputSTR, filterLIST):
     else:
         return resultDICT
 
+
 if __name__ == "__main__":
-    # Price
-    print("[TEST] Price")
-    inputLIST = ['少於5000美金','2500到5000中間','價錢2500美金到5000美金','每一個月不能超過5000美金','少於5000美金，超過一點也行']
-    testLoki(inputLIST, ['Price'])
-    print("")
-
     # Amenities
+    '''
     print("[TEST] Amenities")
-    inputLIST = ['有廚房','不能抽煙','有健身房','包含水電費','可以養動物','家具都包含','有餐廳和客廳','附近有捷運站','附近有游泳池','洗衣機和烘乾機都需要']
+    inputLIST = ['有廚房','不能抽煙','包含水電費','可以養動物','家具都包含','有餐廳和客廳','附近有捷運站','洗衣機和烘乾機都包含']
     testLoki(inputLIST, ['Amenities'])
-    print("")
-
-    # Bed
-    print("[TEST] Bed")
-    inputLIST = ['一張床','兩房三床','我們需要一張床']
-    testLoki(inputLIST, ['Bed'])
     print("")
 
     # Bath
     print("[TEST] Bath")
-    inputLIST = ['兩張床','兩人住，一張床就行']
+    inputLIST = ['乾濕分離','公共浴室','獨立衛浴']
     testLoki(inputLIST, ['Bath'])
     print("")
 
+    # Price
+    print("[TEST] Price")
+    inputLIST = ['少於5000美金','2500到5000美金','房租2500美金到5000美金']
+    testLoki(inputLIST, ['Price'])
+    print("")
+
+    # Bed
+    print("[TEST] Bed")
+    inputLIST = ['一張床','兩房三床']
+    testLoki(inputLIST, ['Bed'])
+    print("")
+    '''
+
     # 輸入其它句子試看看
-    inputLIST = ["一張床"]
+    inputLIST = ["包含水電費, 公共衛浴, 少於5000美金, 三張床， 有餐廳和客廳"]
     filterLIST = []
     resultDICT = runLoki(inputLIST, filterLIST)
     print("Result => {}".format(resultDICT))
