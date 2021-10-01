@@ -42,7 +42,9 @@ class BotClient(discord.Client):
             #resultDICT = botRunLoki(msg, [])
 
             if msg.lower() in ("hi", "", "hey", "hello"):
-                await message.reply("hey there!") 
+                await message.reply("hey there!")
+
+                #@TODO does not recognize returning users, remove for now
                 if message.author.name in mscDICT.keys():
                     #await message.reply("hey there!")
                     #nowDATETIME = datetime.datetime.now()
@@ -80,8 +82,14 @@ class BotClient(discord.Client):
                         #elif k == "updatetime":
                         #    break
                     else:
-                        replySTR = "您要找的房間是：{}".format(mscDICT)
-                        #await message.reply("Result => {}".format(mscDICT))
+                        replySTR = message.author.name + " 要找的房間是："
+                        for item in mscDICT.values():
+                            replySTR += "{}".format(item)
+
+                        #@TODO replace brackets with empty space
+                        #current replySTR result:
+                        #SafeHaven 要找的房間是：{'Bed': [[3]], 'Bath': ['乾濕分離'], 'Price': ['>5000'], 'Amenities': ['水電費']}
+                        replySTR.replace("{","").replace("}","").replace("[","").replace("]","") #this doesnt work
                 await message.reply(replySTR)
 
 
